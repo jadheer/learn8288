@@ -2,6 +2,18 @@
 class Website_functions_model extends CI_Model
 {
 
+	public function add_purchase_details(Array $array)
+	{
+		$this->db->insert('tbl_purchases',$array);
+		return $this->db->insert_id();
+	} 
+
+	public function add_billing_details(Array $array)
+	{
+		$this->db->insert('customer_details',$array);
+		return $this->db->insert_id();
+	} 
+
 	function insertcart($basedata)
 	{
 		return $this->db->insert('tbl_cart',$basedata);

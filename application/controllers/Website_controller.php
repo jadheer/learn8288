@@ -9,7 +9,6 @@ class Website_controller extends CI_Controller
 			$this->session->set_userdata("cart_session", md5($uniqueId)); 
 		}
 
-		$this->load->model('Website_functions_model');
 		// $main_category_list = $this->Website_functions_model->get_main_category_list();
 
 		$this->load->view('website/index');
@@ -43,7 +42,6 @@ class Website_controller extends CI_Controller
 	{
 		$slug = $this->uri->segment(2);
 
-		$this->load->model('Website_functions_model');
 		$course 			= 	$this->Website_functions_model->get_course_id_by_slug($slug);
 		$course_id 			= 	$course->sub_category_id;
 		$sub_category_name 	= 	$course->sub_category_name;
@@ -57,8 +55,6 @@ class Website_controller extends CI_Controller
 	public function classroom_training_course_details()
 	{
 		$slug = $this->uri->segment(2);
-
-		$this->load->model('Website_functions_model');
 
 		$course 	= $this->Website_functions_model->get_course_id_by_slug($slug);
 		// echo"<pre>";print_r($course->sub_category_id);die;
@@ -79,7 +75,6 @@ class Website_controller extends CI_Controller
 
 	public function getClassroomTrainingBatches()
 	{
-        $this->load->model('Website_functions_model');
 		$data = $this->input->get();
 		$country_id = $data['country_id'];
 		$center_id = $data['center_id'];
@@ -102,8 +97,6 @@ class Website_controller extends CI_Controller
 	{
 		$slug = $this->uri->segment(2);
 
-		$this->load->model('Website_functions_model');
-
 		$course 	= $this->Website_functions_model->get_course_id_by_slug($slug);
 		// echo"<pre>";print_r($course->sub_category_id);die;
 		$course_id = $course->sub_category_id;
@@ -115,8 +108,6 @@ class Website_controller extends CI_Controller
 
 	public function customer_data()
 	{
-		$this->load->model('Website_functions_model');
-
         if(count($this->cart->contents()) != 0){
 			$this->load->view('website/customer_details');
         }
@@ -133,10 +124,9 @@ class Website_controller extends CI_Controller
 			'name' => $this->input->post('name'),
 			'phone' => $this->input->post('phone'),
 			'email' => $this->input->post('email'),
-			'address' => $this->input->post('address')
 		);
 
-		if( $customer_details_id = $this->Web_model->add_billing_details($form_data) )
+		if( $customer_details_id = $this->Website_functions_model->add_billing_details($form_data) )
 		{
 
 			$total_items = 0;
@@ -157,7 +147,7 @@ class Website_controller extends CI_Controller
 				'payment_status' => "PENDING",
 			);
 
-			$purchase_id = $this->Web_model->add_purchase_details($arr_purchase_details);
+			$purchase_id = $this->Website_functions_model->add_purchase_details($arr_purchase_details);
 			$_SESSION['purchase_id'] = $purchase_id;
 			$_SESSION['name'] = $this->input->post('name');
 
@@ -175,6 +165,7 @@ class Website_controller extends CI_Controller
     {
         parent::__construct();
         $this->load->library('cart');
+        $this->load->model('Website_functions_model');
     }
 
 }
