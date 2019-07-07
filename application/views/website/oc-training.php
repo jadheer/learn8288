@@ -124,24 +124,7 @@
       <div class="text-center">
         <br>
 
-            <form target="_self" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="business" value="info-facilitator@skillsswear.com">
-
-                <!-- Specify a PayPal Shopping Cart Add to Cart button. -->
-                <input type="hidden" name="cmd" value="_cart">
-                <input type="hidden" name="add" value="1">
-
-                <!-- Specify details about the item that buyers will purchase. -->
-                <input type="hidden" name="item_name" value="<?=($batch->title)?>">
-                <input type="hidden" name="amount" value="<?=($batch->course_fee_offer)?>">
-                <input type="hidden" name="currency_code" value="USD">
-
-                <!-- Continue shopping on the web page for birthday cards -->
-                <input type="hidden" name="shopping_url" value="">
-
-                <!-- Display the payment button. -->
-                <button class="btn btn-theme btn-warning text-uppercase font-lato fw-bold" name="submit" >Add to Cart</button>
-            </form>
+            <button type="button" id="<?= $batch->ot_batch_id; ?>" data-productid="<?= $batch->ot_batch_id; ?>" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold add_cart" name="add_cart" data-type="ot" data-productname="<?=$sub_category_name?>-ot-batch-<?=url_title($batch->timings, 'dash', true)?>" data-price="<?=($batch->course_fee_offer)?>"> Add To Cart</button>
 
       </div>
     </div>

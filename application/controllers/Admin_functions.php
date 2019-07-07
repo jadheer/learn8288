@@ -1,6 +1,51 @@
 <?php
 class Admin_functions extends CI_Controller 
 {
+	/* course purchases starts here */
+
+	public function invoice($invoice_id)
+	{
+
+		$this->load->model('Admin_functions_model');
+
+		$obj_order_details = $this->Admin_functions_model->get_order_details($invoice_id);
+
+		// echo "<pre>";print_r($obj_order_details);die;
+		$arr_items = explode(',', $obj_order_details->items);
+
+		foreach ($arr_items as $item) {
+			$items_filtered = explode("-", $item);
+			$course_type = $items_filtered[0];
+			$course_id = $items_filtered[1];
+			if($course_type == 'ct'){
+				$arr_batch[] = $this->Admin_functions_model->get_ct_exact_batch_by_id($course_id);
+			}
+			else{
+				$arr_batch[] = $this->Admin_functions_model->get_ot_exact_batch_by_id($course_id);
+			}
+		}
+
+		// echo "<pre>";print_r($arr_batch);die;
+
+		$this->load->view('admin/invoice_view.php',compact('obj_order_details','arr_batch','arr_items'));
+	}
+
+	public function customer_details($customer_id)
+	{
+		$this->load->model('Admin_functions_model');
+		$obj_customer_details = $this->Admin_functions_model->getCustomerDetailById($customer_id);
+
+		$this->load->view('admin/customer_details',compact('obj_customer_details'));
+	}
+
+	public function orders()
+	{
+		$this->load->model('Admin_functions_model');
+		$order_list = $this->Admin_functions_model->get_order_list();
+
+		$this->load->view('admin/order_view',compact('order_list'));
+	}
+	
 	/* Course cms starts here */
 
 	public function update_course_content()
@@ -206,7 +251,7 @@ class Admin_functions extends CI_Controller
 
 		$this->load->model('Admin_functions_model');
 
-		$ct_batches = $this->Admin_functions_model->get_ct_batch_by_id($country_id,$center_id,$main_category_id,$course_id);
+		$ct_batches = $this->Admin_functions_model->get_ct_batch_by_id($course_id);
 		$main_category_list = $this->Admin_functions_model->get_main_category_list();
 		$sub_category_list = $this->Admin_functions_model->get_sub_category_list();
 		$countries_list = $this->Admin_functions_model->get_countries_list();

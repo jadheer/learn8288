@@ -118,8 +118,22 @@ class Website_controller extends CI_Controller
 
 	}
 
+	// public function process( $paymentID=NULL,$payerID=NULL,$token=NULL,$pid=NULL )
 	public function pay()
 	{
+
+/*	    $paypalExpress = new paypalExpress();
+	    $paymentID = $paymentID;
+	    $payerID = $payerID;
+	    $token = $token;
+	    $pid = $pid;
+	    
+	    $paypalCheck=$paypalExpress->paypalCheck($paymentID, $pid, $payerID, $token);
+	    echo "<pre>";print_r($paypalCheck);die;
+	    
+	    if($paypalCheck){
+	        header('Location:orders.php');
+	    }*/
 
 		$form_data = array(
 			'name' => $this->input->post('name'),
@@ -127,12 +141,14 @@ class Website_controller extends CI_Controller
 			'email' => $this->input->post('email'),
 		);
 
+		// echo "<pre>";print_r($this->cart->contents());die;
+
 		if( $customer_details_id = $this->Website_functions_model->add_billing_details($form_data) )
 		{
 
 			$total_items = 0;
 			foreach ($this->cart->contents() as $items) {
-				$arr_items[] = $items["id"]."-".$items["qty"];
+				$arr_items[] = $items["type"]."-".$items["id"]."-".$items["qty"];
 				$total_items++;
 			}
 
@@ -155,7 +171,7 @@ class Website_controller extends CI_Controller
 			// $paypal = new PaypalExpress();
 			// echo $this->config['clientId'];
 			// var_dump($this->config->item('clientId'));
-			echo "<pre>";print_r($this->getToken());
+			// echo "<pre>";print_r($this->getToken());
 
 
 		}
@@ -201,6 +217,7 @@ class Website_controller extends CI_Controller
         parent::__construct();
         $this->load->library('cart');
         $this->load->model('Website_functions_model');
+        $this->load->library('paypalExpress');
     }
 
 }

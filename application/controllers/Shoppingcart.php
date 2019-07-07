@@ -39,6 +39,7 @@ class Shoppingcart extends CI_Controller
             "id"  => $_POST["product_id"],
             "user"  => $cart_session,
             "name"  => $_POST["product_name"],
+            "type"  => $_POST["type"],
             "price"  => $_POST["product_price"],
             "qty"  => $_POST["quantity"]
 
