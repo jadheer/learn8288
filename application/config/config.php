@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://ec2-3-84-90-43.compute-1.amazonaws.com/skill/';
-$config['base_url'] = 'http://webstaging.ml/skill/skill/';
+$config['base_url'] = 'http://webstaging.ml/skill/';
 
 $config['env'] = 'sandbox';
 $config['api_url'] = 'https://api.sandbox.paypal.com/';
