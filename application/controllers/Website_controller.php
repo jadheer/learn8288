@@ -1,4 +1,5 @@
 <?php
+
 class Website_controller extends CI_Controller
 {
 	public function index()
@@ -151,6 +152,11 @@ class Website_controller extends CI_Controller
 			$_SESSION['purchase_id'] = $purchase_id;
 			$_SESSION['name'] = $this->input->post('name');
 
+			// $paypal = new PaypalExpress();
+			// echo $this->config['clientId'];
+			// var_dump($this->config->item('clientId'));
+			echo "<pre>";print_r($this->getToken());
+
 
 		}
 		else
@@ -160,6 +166,35 @@ class Website_controller extends CI_Controller
 		}
 
 	}
+
+/*	public function getToken()
+	{
+		$clientId 	= $this->config->item('clientId');
+		$secret		= $this->config->item('secret');
+		$api_url	= $this->config->item('api_url');
+            
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, $api_url."v1/oauth2/token");
+		curl_setopt($ch, CURLOPT_HEADER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSLVERSION , 6);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+		curl_setopt($ch, CURLOPT_USERPWD, $clientId.":".$secret);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+
+		$result = curl_exec($ch);
+
+		if(empty($result))die("Error: No response.");
+		else
+		{
+		    $json = json_decode($result);
+		    return $json;
+		}
+
+		curl_close($ch);
+	}*/
 
     public function __construct()
     {

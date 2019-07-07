@@ -25,6 +25,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost/offer2';
 
+$config['env'] = 'sandbox';
+$config['api_url'] = 'https://api.sandbox.paypal.com/';
+$config['clientId'] = 'AUVQJby2C9FqX2X-H7Wi23wisO3lHAjl-rLUH8Eo3qcop_Hxw2FL-a6BJb0Ukr_tV-tUArrRQP4j7jWi';
+$config['secret'] = 'ED-Yid-PSV4YfuKmNteT91vXdnH12kKgg3bgasSkUQ9eqVbuS9vL-YzfcHh1R07Qf6SIk_881wTlm8_Z';
+
+/*$config['env'] = 'production';
+$config['api_url'] = 'https://api.paypal.com/';
+$config['clientId'] = 'AUVQJby2C9FqX2X-H7Wi23wisO3lHAjl-rLUH8Eo3qcop_Hxw2FL-a6BJb0Ukr_tV-tUArrRQP4j7jWi';
+$config['secret'] = 'ED-Yid-PSV4YfuKmNteT91vXdnH12kKgg3bgasSkUQ9eqVbuS9vL-YzfcHh1R07Qf6SIk_881wTlm8_Z';*/
+
 /*
 |--------------------------------------------------------------------------
 | Index File

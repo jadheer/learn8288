@@ -59,6 +59,7 @@
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-success" name="submit" >Pay Rs <?=$this->cart->total()?> <span id="delivery_cost"></span></button>
+                                    <div id="paypal-button-container"></div>
                                 </div>
                             </div>
                         </form>
@@ -74,6 +75,38 @@
 
 <!-- footer-area end -->
 <?php include_once('includes/footer.php'); ?>
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+      <script>
+        paypal.Button.render({
+            env: '<?=($this->config->item('env'))?>', 
+            client: {
+                sandbox:    '<?=($this->config->item('clientId'))?>',
+                production: '<?=($this->config->item('clientId'))?>'
+            },
+            commit: true,
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: '1200', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
+            onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function() {
+                    console.log('Payment Complete!');
+                    window.location = "<?=(base_url())?>process.php?paymentID="+data.paymentID+"&payerID="+data.payerID+"&token="+data.paymentToken+"&pid=fsf4r34ff";
+
+                });
+            }
+
+        }, '#paypal-button-container');
+
+    </script>
 
 </body>
 
