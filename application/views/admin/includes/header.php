@@ -133,6 +133,13 @@
                                 </ul>
                             </li>
 
+                            <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-upload"></i>Purchase</a>
+                                <ul class="submenu">
+                                    <li><?= anchor('admin_functions/orders','Orders'); ?></li>
+                                </ul>
+                            </li>
+
                             <?php } ?>
 
                         </ul>

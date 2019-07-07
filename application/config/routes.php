@@ -64,6 +64,7 @@ $route['course-details/:any/online-training'] = 'Website_controller/online_train
 
 $route['customer-data'] = 'Website_controller/customer_data';
 $route['pay'] = 'Website_controller/pay';
+$route['process'] = 'Website_controller/process';
 
 $route['login'] = 'Admin_authentication';
 // $route['default_controller'] = 'Admin_authentication';

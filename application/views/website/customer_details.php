@@ -1,20 +1,24 @@
 <?php include_once('includes/header.php'); ?>
 
+        <header class="heading-banner text-white bgCover" style="background-image: url(<?= base_url('website_assets/images/img23.jpg'); ?>);">
+            <div class="container holder">
+                <div class="align">
+                    <h1>Review your order</h1>
+                </div>
+            </div>
+        </header>
 
 <div class="contact-area">
 
-
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-xl-6 offset-xl-1 col-12 col-lg-11 offset-lg-1">
+            <div class="col-xl-6 offset-xl-1 col-md-8 col-lg-11 offset-lg-1">
                 <div class="contact-wrappper">
-
-                    <span style="font-size: 25px;">Review your order</span>
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Sl. No.</th>
-                                <th>Products in Cart</th>
+                                <th>Courses Cart</th>
                                 <th>Quantity</th>
                                 <th>Unit Price</th>
                                 <th>Total</th>
@@ -22,52 +26,51 @@
                         </thead>
                         <tbody>
                             <?php $count=1; foreach ($this->cart->contents() as $items) { ?>
-
-                            <tr>
-                                <td><?=$count?></td>
-                                <td><?=$items["name"]?></td>
-                                <td><?=$items["qty"]?></td>
-                                <td>Rs <?=$items["price"]?></td>
-                                <td>Rs <?=$items["price"]*$items["qty"]?></td>
-                            </tr>
-
+                                <tr>
+                                    <td><?=$count?></td>
+                                    <td><?=$items["name"]?></td>
+                                    <td><?=$items["qty"]?></td>
+                                    <td>Rs <?=$items["price"]?></td>
+                                    <td>Rs <?=$items["price"]*$items["qty"]?></td>
+                                </tr>
                             <?php $count++;  } ?>
                         </tbody>
                         <tr>
                             <td colspan="4">Grand Total</td>
                             <td>Rs <?=$this->cart->total()?></td>
                         </tr>
-                    </table>    
-
-
-                    <span style="font-size: 25px;">Please enter your billing details</span>
-
-
-                    <div class="contact-form form-style">
-                        <div class="cf-msg"></div>
-                        <form action="<?php echo base_url('pay'); ?>" method="post">
-                            <div class="row">
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" placeholder="Name" id="name" name="name" required>
+                    </table>
+                    <article class="container text-info-block">
+                        <div class="container">
+                            <!-- contact form -->
+                            <form action="<?php echo base_url('pay'); ?>" class="contact-form" method="POST">
+                                <h3 class="text-center">Please enter your billing details</h3>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control element-block" placeholder="Your Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="email" name="email" class="form-control element-block" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" name="phone" class="form-control element-block" placeholder="Phone">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-12  col-sm-6">  
-                                    <input type="text" placeholder="Phone" id="phone" name="phone" required>
-
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" placeholder="Email" id="email" name="email" required>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-success" name="submit" >Pay Rs <?=$this->cart->total()?> <span id="delivery_cost"></span></button>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Pay Rs <?=$this->cart->total()?></button>
                                     <div id="paypal-button-container"></div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                    </article>
+                    <!-- counter aside -->
                 </div>
-            </div>
-            <div class="col-xl-5 col-12 text-center">
-                <img src="<?php echo base_url('assets_web/images/delivery.png'); ?>">
             </div>
         </div>
     </div>
@@ -99,7 +102,7 @@
             onAuthorize: function(data, actions) {
                 return actions.payment.execute().then(function() {
                     console.log('Payment Complete!');
-                    window.location = "<?=(base_url())?>process.php?paymentID="+data.paymentID+"&payerID="+data.payerID+"&token="+data.paymentToken+"&pid=fsf4r34ff";
+                    window.location = "<?=(base_url())?>process?paymentID="+data.paymentID+"&payerID="+data.payerID+"&token="+data.paymentToken+"&pid=fsf4r34ff";
 
                 });
             }

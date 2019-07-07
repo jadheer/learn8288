@@ -118,6 +118,7 @@
             var product_id= $(this).data('productid');
             var product_name= $(this).data('productname');
             var product_price= $(this).data('price');
+            var type= $(this).data('type');
             // var stock= $(this).data('stock');
 
             // if(stock >= 1){
@@ -127,7 +128,7 @@
                 $.ajax({
                     url:"<?php echo base_url(); ?>Shoppingcart/add",
                     method:"POST",
-                    data:{product_id:product_id,product_name:product_name,product_price:product_price,quantity:1},
+                    data:{product_id:product_id,product_name:product_name,product_price:product_price,type:type,quantity:1},
                     success:function(data)
                     {
                         $('#count').load("<?php echo base_url(); ?>Shoppingcart/count");

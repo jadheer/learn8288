@@ -65,7 +65,7 @@
     <div class="col-md-2 col-sm-12 col-xs-12">
       <div class="text-center">
         <br>
-    <button type="button" id="<?= $batch->ct_batch_id; ?>" data-productid="<?= $batch->ct_batch_id; ?>" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold add_cart" name="add_cart" data-productname="<?=$sub_category_name?>-batch-<?=$exact_date?>" data-price="<?=($batch->course_fee_offer)?>"> Add To Cart</button>
+    <button type="button" id="<?= $batch->ct_batch_id; ?>" data-productid="<?= $batch->ct_batch_id; ?>" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold add_cart" name="add_cart" data-type="ct" data-productname="<?=$sub_category_name?>-ct-batch-<?=$exact_date?>" data-price="<?=($batch->course_fee_offer)?>"> Add To Cart</button>
 
 
 <!--         <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Enroll Now</button> -->

@@ -1,6 +1,83 @@
 <?php
 class Admin_functions_model extends CI_Model
 {
+
+	/* course purchases starts here */
+
+	public function get_ot_exact_batch_by_id($id)
+	{
+
+		$query = $this->db
+				->select(['b.main_category_name','a.sub_category_name','c.ot_batch_id','c.main_category_id','c.course_id','c.title','c.timings','c.course_fee_full','c.course_fee_offer','c.offer_untill_date'])
+		        ->from('tbl_ot_batches c')
+	            ->join('tbl_main_category b', 'b.main_category_id = c.main_category_id')
+	            ->join('tbl_sub_category a', 'a.sub_category_id = c.course_id')
+	            ->where("c.ot_batch_id",$id)
+				->get();
+			return $query->row();
+	}
+
+	public function get_ct_exact_batch_by_id($id)
+	{
+		$query = $this->db
+				->select(['e.country_name','d.center_name','b.main_category_name','a.sub_category_name','c.ct_batch_id','c.country_id','c.center_id','c.main_category_id','c.course_id','c.dates','c.from_time','c.to_time','c.course_fee_full','c.course_fee_offer','c.offer_untill_date'])
+		        ->from('tbl_ct_batches c')
+	            ->join('tbl_main_category b', 'b.main_category_id = c.main_category_id')
+	            ->join('tbl_sub_category a', 'a.sub_category_id = c.course_id')
+	            ->join('tbl_centers d', 'd.center_id = c.center_id')
+	            ->join('tbl_countries e', 'e.country_id = c.country_id')
+	            ->where("c.ct_batch_id",$id)
+				->get();
+			return $query->row();
+	}
+
+	public function getProductDetailsById($productDetail_id)
+	{
+
+		$query = $this->db
+				->select('*')
+		        ->from('tbl_products')
+		        ->where('id',$productDetail_id)
+				->get();
+
+		return $query->result();
+	}
+
+	public function get_order_details($invoice_id)
+	{
+
+		$query = $this->db
+				->select(['purchase_id','no_of_items','items','amount','order_date_time','payment_status'])
+		        ->from('tbl_purchases')
+		        ->where('purchase_id',$invoice_id)
+				->get();
+
+		return $query->row();
+	}
+
+	public function getCustomerDetailById($customer_id)
+	{
+
+		$query = $this->db
+				->select(['name','phone','email'])
+		        ->from('customer_details')
+		        ->where('customer_id',$customer_id)
+				->get();
+
+		return $query->result();
+
+	}
+
+	public function get_order_list()
+	{
+		$query = $this->db
+				->select(['purchase_id','customer_id','no_of_items','items','amount','order_date_time','payment_status'])
+		        ->from('tbl_purchases')
+				->get();
+
+		return $query->result();
+	}
+
 	/* Course cms starts here */
 
 	public function store_cms_content($array)
@@ -407,36 +484,6 @@ class Admin_functions_model extends CI_Model
 					->update('tbl_customers',$array);
 	}
 
-	public function get_unverified_order_list()
-	{
-		$query = $this->db
-				->select(['a.order_id','a.quantity','a.file','a.alter_file_name','a.order_date_time','a.sub_sub_category_id','a.batch','e.customer_official_id','e.fullname','d.sub_sub_category_name','c.sub_category_name','b.main_category_name','a.amount','a.order_status'])
-		        ->from('tbl_orders a')
-	            ->join('tbl_sub_sub_category d', 'd.sub_sub_category_id = a.sub_sub_category_id')
-	            ->join('tbl_main_category b', 'b.main_category_id = d.main_category_id')
-	            ->join('tbl_sub_category c', 'c.sub_category_id = d.sub_category_id')
-	            ->join('tbl_customers e', 'e.customer_id = a.customer_id')
-	            ->where('order_status',0)
-	            ->order_by("order_id","desc")
-				->get();
-			return $query->result();
-	}
-
-	public function get_verified_order_list()
-	{
-		$query = $this->db
-				->select(['a.order_id','a.quantity','a.file','a.alter_file_name','a.order_date_time','a.sub_sub_category_id','a.batch','e.customer_official_id','e.fullname','d.sub_sub_category_name','c.sub_category_name','b.main_category_name','a.amount','a.order_status'])
-		        ->from('tbl_orders a')
-	            ->join('tbl_sub_sub_category d', 'd.sub_sub_category_id = a.sub_sub_category_id')
-	            ->join('tbl_main_category b', 'b.main_category_id = d.main_category_id')
-	            ->join('tbl_sub_category c', 'c.sub_category_id = d.sub_category_id')
-	            ->join('tbl_customers e', 'e.customer_id = a.customer_id')
-	            ->where('order_status !=',0)
-	            ->order_by("order_id","desc")
-				->get();
-			return $query->result();
-	}
-
 	public function get_sub_sub_category_data($sub_sub_category_id)
 	{
 		$query = $this->db
@@ -468,12 +515,9 @@ class Admin_functions_model extends CI_Model
 			return $query->result();
 	}
 
-	public function get_ct_batch_by_id($country_id,$center_id,$main_category_id,$course_id)
+	public function get_ct_batch_by_id($course_id)
 	{
 		$query = $this->db
-				->where("country_id",$country_id)
-				->where("center_id",$center_id)
-				->where("main_category_id",$main_category_id)
 				->where("course_id",$course_id)
 		        ->from('tbl_ct_batches c')
 				->get();
