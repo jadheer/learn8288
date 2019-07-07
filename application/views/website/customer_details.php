@@ -90,7 +90,7 @@
                     payment: {
                         transactions: [
                             {
-                                amount: { total: '1200', currency: 'USD' }
+                                amount: { total: '1200', currency: 'INR' }
                             }
                         ]
                     }
