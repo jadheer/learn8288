@@ -140,6 +140,13 @@
                                 </ul>
                             </li>
 
+                            <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-upload"></i>CMS</a>
+                                <ul class="submenu">
+                                    <li><?= anchor('admin_functions/popular_courses','Most Popular Course'); ?></li>
+                                </ul>
+                            </li>
+
                             <?php } ?>
 
                         </ul>

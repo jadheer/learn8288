@@ -1,6 +1,45 @@
 <?php
 class Admin_functions_model extends CI_Model
 {
+	/*  cms */
+
+	public function delete_popular_course($popular_course_id)
+	{
+		return $this->db->delete('tbl_popular_course',['popular_course_id'=>$popular_course_id]);
+	}
+
+	public function update_popular_course($popular_course_id, Array $form_data)
+	{
+		return $this->db
+					->where('popular_course_id',$popular_course_id)
+					->update('tbl_popular_course',$form_data);
+	}
+
+	public function getPopularCourseById($popular_course_id)
+	{
+		$query = $this->db
+				->select('*')
+		        ->from('tbl_popular_course')
+		        ->where("popular_course_id",$popular_course_id)
+				->get();
+
+		return $query->row();
+	}
+
+	public function getAllPopularCourses()
+	{
+		$query = $this->db
+				->select('*')
+		        ->from('tbl_popular_course')
+				->get();
+
+		return $query->result();
+	}
+
+	public function save_popular_course($array)
+	{
+		return $this->db->insert('tbl_popular_course',$array);
+	}
 
 	/* course purchases starts here */
 
