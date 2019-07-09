@@ -10,9 +10,9 @@ class Website_controller extends CI_Controller
 			$this->session->set_userdata("cart_session", md5($uniqueId)); 
 		}
 
-		// $main_category_list = $this->Website_functions_model->get_main_category_list();
+		$arr_popular_courses = $this->Website_functions_model->get_popular_course();
 
-		$this->load->view('website/index');
+		$this->load->view('website/index',compact('arr_popular_courses'));
 	}
 
 	public function aboutus()

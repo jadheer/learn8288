@@ -110,146 +110,27 @@
 				<div class="row">
 					<!-- popular posts slider -->
 					<div class="slider popular-posts-slider">
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Project Management</a></h3>
+						<?php if(!empty($arr_popular_courses)){ ?>
+							<?php foreach ($arr_popular_courses as $obj_popular_course){?>
 
-								</article>
+							<div>
+								<div class="col-xs-12">
+									<!-- popular post -->
+									<article class="popular-post">
+										<div class="aligncenter">
+											<img src="<?= base_url('uploads/others/'.$obj_popular_course->image) ?>" alt="image description">
+										</div>
+										<div>
+											<strong class="bg-primary text-white font-lato text-uppercase price-tag"><?=($obj_popular_course->price)?></strong>
+										</div>
+										<h3 class="post-heading"><a href="#"><?=($obj_popular_course->title)?></a></h3>
+
+									</article>
+								</div>
 							</div>
-						</div>
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Agile Management</a></h3>
 
-								</article>
-							</div>
-						</div>
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Business Management & Analytics</a></h3>
+						<?php }} ?>
 
-								</article>
-							</div>
-						</div>
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Quality Management</a></h3>
-
-								</article>
-							</div>
-						</div>
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Finance Management</a></h3>
-
-								</article>
-							</div>
-						</div>
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Big Data & Data Science</a></h3>
-
-								</article>
-							</div>
-						</div>
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">DevOps</a></h3>
-
-								</article>
-							</div>
-						</div>
-						<div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Cloud Computing</a></h3>
-
-								</article>
-							</div>
-						</div>
-                        
-                        
-                        
-                        <div>
-							<div class="col-xs-12">
-								<!-- popular post -->
-								<article class="popular-post">
-									<div class="aligncenter">
-										<img src="<?php echo base_url('website_assets/images/img02.jpg'); ?>" alt="image description">
-									</div>
-									<div>
-										<strong class="bg-primary text-white font-lato text-uppercase price-tag">100.00</strong>
-									</div>
-									<h3 class="post-heading"><a href="#">Technical & IT</a></h3>
-
-								</article>
-							</div>
-						</div>
-
-                        
 					</div>
 				</div>
 			</section>

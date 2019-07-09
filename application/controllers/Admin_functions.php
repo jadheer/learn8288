@@ -3,6 +3,141 @@ class Admin_functions extends CI_Controller
 {
 	/* course purchases starts here */
 
+	public function delete_popular_course()
+	{
+		$popular_course_id = $this->input->post('popular_course_id');
+
+		$this->load->model('Admin_functions_model');
+		if( $this->Admin_functions_model->delete_popular_course($popular_course_id) )
+		{
+			$this->session->set_flashdata('feedback', 'Popular course deleted successfully');
+			$this->session->set_flashdata('feedback_class', 'alert-success');
+		}
+		else
+		{
+			$this->session->set_flashdata('feedback', 'Failed to delete, Please try again');
+			$this->session->set_flashdata('feedback_class', 'alert-danger');
+		}
+
+		return redirect('Admin_functions/popular_courses');
+	}
+
+	public function update_popular_course()
+	{
+		$this->load->model('Admin_functions_model');
+		$popular_course_id	= $this->input->post('popular_course_id');
+		if(!empty($_FILES['image']['name'])){
+			$config['upload_path'] = './uploads/others/';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|PDF';
+			$config['max_size']             = 20480;
+
+			$config['image'] = $_FILES['image']['name'];
+
+			$this->load->library('upload',$config);
+			$this->upload->initialize($config);
+			$this->load->model('Admin_functions_model');
+
+			if($this->upload->do_upload('image'))
+			{
+				$form_data = array(
+					'title'	=> $this->input->post('title'),
+					'price'	=> $this->input->post('price'),
+					'link'	=> $this->input->post('link'),
+					'image' => $config['image']
+				);
+
+				if( $this->Admin_functions_model->update_popular_course($popular_course_id,$form_data) )
+				{
+					$this->session->set_flashdata('feedback', 'Popular course updated successfully');
+					$this->session->set_flashdata('feedback_class', 'alert-success');
+				}
+				else
+				{
+					$this->session->set_flashdata('feedback', 'Failed to update, Please try again');
+					$this->session->set_flashdata('feedback_class', 'alert-danger');
+				}
+			}
+		}
+		else{
+				$form_data = array(
+					'title'	=> $this->input->post('title'),
+					'price'	=> $this->input->post('price'),
+					'link'	=> $this->input->post('link')
+				);
+
+
+				if( $this->Admin_functions_model->update_popular_course($popular_course_id,$form_data) )
+				{
+					$this->session->set_flashdata('feedback', 'Popular course updated successfully');
+					$this->session->set_flashdata('feedback_class', 'alert-success');
+				}
+				else
+				{
+					$this->session->set_flashdata('feedback', 'Failed to save, Please try again');
+					$this->session->set_flashdata('feedback_class', 'alert-danger');
+				}
+			}
+
+		return redirect('Admin_functions/popular_courses');
+	}
+
+	public function edit_popular_course()
+	{
+		$this->load->model('Admin_functions_model');
+		$popular_course_id	= $this->input->post('popular_course_id');
+		$obj_popular_course = $this->Admin_functions_model->getPopularCourseById($popular_course_id);
+
+		$this->load->view('admin/edit_popular_course',compact('obj_popular_course'));
+	}
+
+	public function save_popular_course()
+	{
+
+		$config['upload_path'] = './uploads/others/';
+		$config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|PDF';
+		$config['max_size']             = 20480;
+
+		$config['image'] = $_FILES['image']['name'];
+
+		$this->load->library('upload',$config);
+		$this->upload->initialize($config);
+		$this->load->model('Admin_functions_model');
+
+		if($this->upload->do_upload('image'))
+		{
+			$form_data = array(
+				'title'	=> $this->input->post('title'),
+				'price'	=> $this->input->post('price'),
+				'link'	=> $this->input->post('link'),
+				'image' => $config['image']
+			);
+
+
+			if( $this->Admin_functions_model->save_popular_course($form_data) )
+			{
+				$this->session->set_flashdata('feedback', 'Product image saved successfully');
+				$this->session->set_flashdata('feedback_class', 'alert-success');
+			}
+			else
+			{
+				$this->session->set_flashdata('feedback', 'Failed to save, Please try again');
+				$this->session->set_flashdata('feedback_class', 'alert-danger');
+			}
+		}
+
+		return redirect('Admin_functions/popular_courses');
+	}
+
+	public function popular_courses()
+	{
+		$this->load->model('Admin_functions_model');
+		$arr_popular_courses = $this->Admin_functions_model->getAllPopularCourses();
+
+		$this->load->view('admin/popular_courses',compact('arr_popular_courses'));
+	}
+
+	/* course purchases starts here */
+
 	public function invoice($invoice_id)
 	{
 
