@@ -2,6 +2,13 @@
 class Website_functions_model extends CI_Model
 {
 
+	public function get_popular_course()
+	{
+		$query = $this->db
+				->get("tbl_popular_course");
+			return $query->result();
+	}
+
 	public function add_purchase_details(Array $array)
 	{
 		$this->db->insert('tbl_purchases',$array);
