@@ -261,7 +261,7 @@ class Website_controller extends CI_Controller
         $this->load->library('cart');
         $this->load->model('Website_functions_model');
         $this->load->model('Admin_functions_model');
-        $this->load->library('paypalExpress');
+        $this->load->library('PaypalExpress');
     }
 
 }
