@@ -64,12 +64,12 @@
 <br><strong class="black"><?=($batch->title)?></strong>
 <br><br>
 
-  <div class="row">
+  <div class="row batch-list">
 
     <div class="col-xs-12 col-md-3">
       <div class="form-group">
         <label>Select Preferable Date</label>
-        <input type="text" class="form-control date element-block" placeholder="Select Preferable Date">
+        <input name="preferable_date" type="text" class="form-control preferable_date date element-block" placeholder="Select Preferable Date">
       </div>
     </div>
 

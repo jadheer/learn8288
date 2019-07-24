@@ -2,6 +2,21 @@
 class Website_functions_model extends CI_Model
 {
 
+	public function update_purchase_status($pid, Array $form_data)
+	{
+		return $this->db
+					->where('purchase_id',$pid)
+					->update('tbl_purchases',$form_data);
+	}
+
+	public function get_purchase_amount($pid)
+	{
+		$query = $this->db
+				->where("purchase_id",$pid)
+				->get("tbl_purchases");
+			return $query->row();
+	}
+
 	public function get_popular_course()
 	{
 		$query = $this->db

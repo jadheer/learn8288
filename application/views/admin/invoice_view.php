@@ -30,7 +30,7 @@
                             <div class="panel-body">
                                 <div class="clearfix">
                                     <div class="pull-left">
-                                        <h3> The Left Out Store</h3>
+                                        <h3> Skillswear</h3>
                                     </div>
                                     <div class="pull-right">
                                         <h4>Invoice # <br>

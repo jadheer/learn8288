@@ -62,6 +62,7 @@ class Website_controller extends CI_Controller
 		$course_id = $course->sub_category_id;
 		$sub_category_name = $course->sub_category_name;
 		$countries_list = $this->Website_functions_model->get_countries_list();
+		$page_type = "class";
 
 		$this->load->view('website/cl-training',compact('countries_list','course_id','sub_category_name'));
 	}
@@ -84,7 +85,6 @@ class Website_controller extends CI_Controller
 		$sub_category_name = $data['sub_category_name'];
 
 		$ct_batches = $this->Website_functions_model->get_ct_batch_by_id($country_id,$center_id,$course_id);
-
 		// print_r($ct_batches);die;
 		$count=0;
 		foreach ($ct_batches as $batch) {
@@ -103,8 +103,9 @@ class Website_controller extends CI_Controller
 		$course_id = $course->sub_category_id;
 		$sub_category_name = $course->sub_category_name;
 		$ot_batches = $this->Website_functions_model->get_ot_batch_by_id($course_id);
+		$page_type = "online";
 
-		$this->load->view('website/oc-training',compact('ot_batches','course_id','sub_category_name'));
+		$this->load->view('website/oc-training',compact('ot_batches','course_id','page_type','sub_category_name'));
 	}
 
 	public function customer_data()
@@ -118,30 +119,14 @@ class Website_controller extends CI_Controller
 
 	}
 
-	// public function process( $paymentID=NULL,$payerID=NULL,$token=NULL,$pid=NULL )
 	public function pay()
 	{
-
-/*	    $paypalExpress = new paypalExpress();
-	    $paymentID = $paymentID;
-	    $payerID = $payerID;
-	    $token = $token;
-	    $pid = $pid;
-	    
-	    $paypalCheck=$paypalExpress->paypalCheck($paymentID, $pid, $payerID, $token);
-	    echo "<pre>";print_r($paypalCheck);die;
-	    
-	    if($paypalCheck){
-	        header('Location:orders.php');
-	    }*/
 
 		$form_data = array(
 			'name' => $this->input->post('name'),
 			'phone' => $this->input->post('phone'),
 			'email' => $this->input->post('email'),
 		);
-
-		// echo "<pre>";print_r($this->cart->contents());die;
 
 		if( $customer_details_id = $this->Website_functions_model->add_billing_details($form_data) )
 		{
@@ -166,13 +151,10 @@ class Website_controller extends CI_Controller
 
 			$purchase_id = $this->Website_functions_model->add_purchase_details($arr_purchase_details);
 			$_SESSION['purchase_id'] = $purchase_id;
+			$_SESSION['amount'] = $grand_total;
 			$_SESSION['name'] = $this->input->post('name');
 
-			// $paypal = new PaypalExpress();
-			// echo $this->config['clientId'];
-			// var_dump($this->config->item('clientId'));
-			// echo "<pre>";print_r($this->getToken());
-
+			return redirect('Website_controller/process_payment');
 
 		}
 		else
@@ -183,41 +165,103 @@ class Website_controller extends CI_Controller
 
 	}
 
-/*	public function getToken()
-	{
-		$clientId 	= $this->config->item('clientId');
-		$secret		= $this->config->item('secret');
-		$api_url	= $this->config->item('api_url');
-            
-		$ch = curl_init();
+	public function process_payment(){
+		$this->load->view('website/process-payment');
+	}
 
-		curl_setopt($ch, CURLOPT_URL, $api_url."v1/oauth2/token");
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSLVERSION , 6);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-		curl_setopt($ch, CURLOPT_USERPWD, $clientId.":".$secret);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+	public function process(){
 
-		$result = curl_exec($ch);
+		if(!empty($_GET['paymentID']) && !empty($_GET['payerID']) && !empty($_GET['token']) && !empty($_GET['pid']) ){
+		    $paypalExpress = new paypalExpress();
+		    $paymentID = $_GET['paymentID'];
+		    $payerID = $_GET['payerID'];
+		    $token = $_GET['token'];
+		    $pid = $_GET['pid'];
 
-		if(empty($result))die("Error: No response.");
-		else
-		{
-		    $json = json_decode($result);
-		    return $json;
+		    $err = NULL;
+		    
+		    $response=$paypalExpress->paypalCheck($paymentID, $pid, $payerID, $token);
+            $result = json_decode($response); 
+		    
+		    if(!empty($result)){
+	            $state = $result->state;
+	            $total = $result->transactions[0]->amount->total;
+	            $currency = $result->transactions[0]->amount->currency;
+	            $subtotal = $result->transactions[0]->amount->details->subtotal;
+	            $recipient_name = $result->transactions[0]->item_list->shipping_address->recipient_name;
+	            
+	            $purchase = $this->Website_functions_model->get_purchase_amount($pid);
+
+	            $form_data = array(
+	                'payment_status' => $state,
+	                'response' => $response,
+	            );
+
+	            if(!empty($purchase)){
+		            if(!empty($subtotal)){
+			            if($state == 'approved' && $purchase->amount ==  $subtotal){
+			                $this->Website_functions_model->update_purchase_status($pid,$form_data);
+			                $res = rtrim(base64_encode($pid),"="); ;
+			            	return redirect('transaction-completed/'.$res);
+			            }
+			            else{
+			                $err = "Mismatch in the amount has occured, please contact the Skillsswear for more info, your payment id is ".$pid." please note it for future reference";
+			            }
+		        	}
+		        	else{
+		        		$err = "We have found some issue with the payment gateway, please try again later, your payment id is ".$pid." please note it for future reference";
+		        	}
+	        	}
+	        	else{
+	        		$err = "We could not find the order you tried to fetch, please contact the Skillsswear for more info, your payment id is ".$pid." please note it for future reference";
+	        	}
+	        	$err = "Something went wrong";
+	        }
+	        else{
+	        	$err = "Something went wrong";
+	        }
+	        if($err == NULL){
+	        	$err = "Something went wrong";
+	        }
+		    $this->load->view('website/error',compact('err'));
+		}
+		else{
+		    return redirect('Website_controller/index');
 		}
 
-		curl_close($ch);
-	}*/
+	}
+
+	public function transaction_complete()
+	{
+		$pid = base64_decode($this->uri->segment(2));
+		$purchase = $this->Website_functions_model->get_purchase_amount($pid);
+		$obj_order_details = $this->Admin_functions_model->get_order_details($pid);
+
+		$arr_items = explode(',', $purchase->items);
+
+		foreach ($arr_items as $item) {
+			$items_filtered = explode("-", $item);
+			$course_type = $items_filtered[0];
+			$course_id = $items_filtered[1];
+			if($course_type == 'ct'){
+				$arr_batch[] = $this->Admin_functions_model->get_ct_exact_batch_by_id($course_id);
+			}
+			else{
+				$arr_batch[] = $this->Admin_functions_model->get_ot_exact_batch_by_id($course_id);
+			}
+		}
+
+		$this->load->view('website/success',compact('obj_order_details','arr_batch','arr_items'));
+
+	}
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('cart');
         $this->load->model('Website_functions_model');
-        // $this->load->library('paypalExpress');
+        $this->load->model('Admin_functions_model');
+        $this->load->library('paypalExpress');
     }
 
 }
