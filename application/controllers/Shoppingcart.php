@@ -44,15 +44,27 @@ class Shoppingcart extends CI_Controller
             "qty"  => $_POST["quantity"]
 
         );
-        $basedata = array(
-            "id"  => $_POST["product_id"],
-            "user"  => $cart_session,
-            "name"  => $_POST["product_name"],
-            "price"  => $_POST["product_price"],
-            "qty"  => $_POST["quantity"],
+        if(!empty($_POST["preferable_date"])){ 
+            $basedata = array(
+                "id"  => $_POST["product_id"],
+                "user"  => $cart_session,
+                "name"  => $_POST["product_name"],
+                "price"  => $_POST["product_price"],
+                "qty"  => $_POST["quantity"],
+                "preferable_date"  => $_POST["preferable_date"],
+            );
+        }
+        else{
+            $basedata = array(
+                "id"  => $_POST["product_id"],
+                "user"  => $cart_session,
+                "name"  => $_POST["product_name"],
+                "price"  => $_POST["product_price"],
+                "qty"  => $_POST["quantity"],
 
-        );
-
+            );
+        }
+// print_r($basedata);die;
         $this->Website_functions_model->insertcart($basedata);
 
         $this->cart->insert($data);//return  row id

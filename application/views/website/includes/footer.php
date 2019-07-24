@@ -113,22 +113,30 @@
         $('.add_cart').css('cursor','pointer');
         $(document).on('click', '.add_cart',  function(event) {
             event.preventDefault();
-       // $('.add_cart').click(function(){
 
             var product_id= $(this).data('productid');
             var product_name= $(this).data('productname');
             var product_price= $(this).data('price');
             var type= $(this).data('type');
+            var pref_date = "";
+            var flag = 1;
+            // var pref_date = $('.preferable_date').val();
             // var stock= $(this).data('stock');
+            var closestParent = $(this).closest('.batch-list');
+            pref_date = closestParent.find('.preferable_date').val();
+            <?php if(isset($page_type)){ if($page_type == "online"){ ?>
+                if(pref_date == ""){
+                    alert("Please select preferable date");
+                    flag = 0;
+                }
+            <?php }} ?>
 
-            // if(stock >= 1){
-          //  var quantity = $('.qnty').val();
-         //   if(quantity != '' && quantity > 0)
-         //   {
+
+            if(flag == 1){            
                 $.ajax({
                     url:"<?php echo base_url(); ?>Shoppingcart/add",
                     method:"POST",
-                    data:{product_id:product_id,product_name:product_name,product_price:product_price,type:type,quantity:1},
+                    data:{product_id:product_id,product_name:product_name,product_price:product_price,type:type,quantity:1,preferable_date:pref_date},
                     success:function(data)
                     {
                         $('#count').load("<?php echo base_url(); ?>Shoppingcart/count");
@@ -137,13 +145,7 @@
                         window.location.href = "<?php echo site_url('Shoppingcart/cartview'); ?>";
                     }
                 });
-          //  }else{
-           //     alert("Please enter quantity");
-          //  }
-/*        }
-        else{
-            alert("This product is out of stock, sorry for inconvenience!");
-        }*/
+            }
         });
         $(document).on('click','.remove_inventory',function(){
             var row_id = $(this).attr("id");

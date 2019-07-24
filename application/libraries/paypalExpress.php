@@ -116,7 +116,7 @@ class paypalExpress
         $secret = $CI->config->item('secret');
         
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $pay_url.'oauth2/token');
+        curl_setopt($ch, CURLOPT_URL, $pay_url."v1/oauth2/token");
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -125,7 +125,7 @@ class paypalExpress
         curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
         $result = curl_exec($ch);
         $accessToken = null;
-        
+
 
         if (empty($result)){
             return false;
@@ -134,7 +134,7 @@ class paypalExpress
         else {
             $json = json_decode($result);
             $accessToken = $json->access_token;
-            $curl = curl_init($pay_url.'payments/payment/' . $paymentID);
+            $curl = curl_init($pay_url.'v1/payments/payment/' . $paymentID);
             curl_setopt($curl, CURLOPT_POST, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_HEADER, false);
@@ -145,28 +145,11 @@ class paypalExpress
             'Content-Type: application/xml'
             ));
             $response = curl_exec($curl);
-            $result = json_decode($response);
-            
-            
-            $state = $result->state;
-            $total = $result->transactions[0]->amount->total;
-            $currency = $result->transactions[0]->amount->currency;
-            $subtotal = $result->transactions[0]->amount->details->subtotal;
-            $recipient_name = $result->transactions[0]->item_list->shipping_address->recipient_name;
+             
             curl_close($ch);
             curl_close($curl);
-            
-            $product = $this->getProduct($pid);
-            
-            if($state == 'approved' && $currency == $product->currency && $product->price ==  $subtotal){
-                $this->updateOrder($pid, $payerID, $paymentID, $paymentToken);
-                return true;
-                
-            }
-            else{
-                
-                return false;
-            }
+
+            return $response;
             
         }
         
