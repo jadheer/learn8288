@@ -1,6 +1,6 @@
 <?php
 
-class paypalExpress
+class PaypalExpress
 {
 
 /*    function timeFormat($ts)
