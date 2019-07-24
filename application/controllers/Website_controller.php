@@ -172,7 +172,7 @@ class Website_controller extends CI_Controller
 	public function process(){
 
 		if(!empty($_GET['paymentID']) && !empty($_GET['payerID']) && !empty($_GET['token']) && !empty($_GET['pid']) ){
-		    $paypalExpress = new paypalExpress();
+		    $paypalExpress = new PaypalExpress();
 		    $paymentID = $_GET['paymentID'];
 		    $payerID = $_GET['payerID'];
 		    $token = $_GET['token'];
