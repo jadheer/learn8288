@@ -133,11 +133,14 @@ class Website_controller extends CI_Controller
 
 			$total_items = 0;
 			foreach ($this->cart->contents() as $items) {
-				$arr_items[] = $items["type"]."-".$items["id"]."-".$items["qty"];
+				$arr_items[] = $items["type"]."--".$items["id"]."--".$items["qty"]."--".$items["preferable_date"];
 				$total_items++;
 			}
 
-			$items = implode(",", $arr_items);
+			$cart_session=$this->session->userdata('cart_session');
+			$cart_data = $this->Website_functions_model->get_cart_data($cart_session);
+			
+			$items = implode("||", $arr_items);
 
 			$grand_total = $this->cart->total();
 
@@ -233,14 +236,14 @@ class Website_controller extends CI_Controller
 
 	public function transaction_complete()
 	{
-		$pid = base64_decode($this->uri->segment(2));
+		$pid = base64_decode($this->uri->segment(2)."=");
 		$purchase = $this->Website_functions_model->get_purchase_amount($pid);
 		$obj_order_details = $this->Admin_functions_model->get_order_details($pid);
 
-		$arr_items = explode(',', $purchase->items);
+		$arr_items = explode('||', $purchase->items);
 
 		foreach ($arr_items as $item) {
-			$items_filtered = explode("-", $item);
+			$items_filtered = explode("--", $item);
 			$course_type = $items_filtered[0];
 			$course_id = $items_filtered[1];
 			if($course_type == 'ct'){

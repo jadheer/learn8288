@@ -46,10 +46,10 @@
                                             <td><?php echo $i; ?></td>
                                             <td><?php echo $list->purchase_id; ?></td>
                                             <td><?php echo $list->no_of_items; ?></td>
-                                            <td>Rs: <?php echo $list->amount; ?> /-</td>
+                                            <td>$ <?php echo $list->amount; ?> /-</td>
                                             <td><?php echo date('F d, Y || h:i A', strtotime($list->order_date_time)); ?></td>
                                             <td>
-                                                <?php if($list->payment_status=='SUCCESS'){ ?>
+                                                <?php if($list->payment_status=='approved'){ ?>
                                                     <span class="label label-success">SUCCESS</span>
                                                 <?php } else if($list->payment_status=='FAILED'){ ?>
                                                     <span class="label label-danger">FAILED</span>

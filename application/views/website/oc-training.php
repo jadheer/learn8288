@@ -115,8 +115,8 @@
     </div>
 
     <div class="col-md-2 col-sm-12 col-xs-12">
-      <div class="t-price"><strong>Course Fee</strong> :  <br>  <span> <i class="fa fa-inr"></i><?=($batch->course_fee_offer)?></span>
-        <del><i class="fa fa-inr"></i><?=($batch->course_fee_full)?></del><br>Till - <?=date('dS F, Y', strtotime($batch->offer_untill_date));?>
+      <div class="t-price"><strong>Course Fee</strong> :  <br>  <span> <i class="fa fa-dollar"></i><?=($batch->course_fee_offer)?></span>
+        <del><i class="fa fa-dollar"></i><?=($batch->course_fee_full)?></del><br>Till - <?=date('dS F, Y', strtotime($batch->offer_untill_date));?>
       </div>
     </div>
 

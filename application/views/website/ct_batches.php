@@ -55,9 +55,9 @@
         <div class="t-price">
             <strong>Course Fee</strong>:<br>  
             <span>
-              <i class="fa fa-inr"></i><span class="course_amount"><?=($batch->course_fee_offer)?></span>
+              <i class="fa fa-dollar"></i><span class="course_amount"><?=($batch->course_fee_offer)?></span>
             </span>
-            <del><i class="fa fa-inr"></i><?=($batch->course_fee_full)?></del>
+            <del><i class="fa fa-dollar"></i><?=($batch->course_fee_full)?></del>
             Till <?php echo date('dS F, Y', strtotime($batch->offer_untill_date)); ?>
         </div>
     </div>

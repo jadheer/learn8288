@@ -74,7 +74,7 @@
                                                 </tr></thead>
                                                 <tbody>
                                                 <?php $grand_total=0; $i =1; $j=0;   foreach ($arr_batch as $batch) {
-                                                    $arr_item = explode('-', $arr_items[$j])
+                                                    $arr_item = explode('--', $arr_items[$j])
                                                     ?>
                                                     <tr>
                                                         <td><?= $i;?></td>
@@ -84,14 +84,15 @@
                                                                 echo $batch->main_category_name; ?> | <?php echo $batch->sub_category_name; ?> | <?php echo $batch->dates; ?> | <?php echo $batch->from_time; ?> - <?php echo $batch->to_time; 
                                                             }
                                                             else{
-                                                                echo $batch->title;
+                                                                echo $batch->title."<br>";
+                                                                echo !empty($arr_item[3])?"Preferable Dates- ".$arr_item[3]:"";
                                                             }
                                                          ?>
                                                          </td>
                                                         <td><?=(!empty($batch->ct_batch_id)?'Classroom':'Online')?></td>
                                                         <td><?php echo $arr_item[2]; ?></td>
-                                                        <td><?=($batch->course_fee_offer)?></td>
-                                                        <td>Rs: <?=($arr_item[2]*$batch->course_fee_offer)?> /-</td>
+                                                        <td>$<?=($batch->course_fee_offer)?></td>
+                                                        <td>$<?=($arr_item[2]*$batch->course_fee_offer)?> /-</td>
                                                     </tr>
                                                 <?php $grand_total += $arr_item[2]*$batch->course_fee_offer; $i++; $j++; } ?>
 

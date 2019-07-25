@@ -41,7 +41,8 @@ class Shoppingcart extends CI_Controller
             "name"  => $_POST["product_name"],
             "type"  => $_POST["type"],
             "price"  => $_POST["product_price"],
-            "qty"  => $_POST["quantity"]
+            "qty"  => $_POST["quantity"],
+            "preferable_date"  => !empty($_POST["preferable_date"])?$_POST["preferable_date"]:"",
 
         );
         if(!empty($_POST["preferable_date"])){ 
@@ -51,7 +52,7 @@ class Shoppingcart extends CI_Controller
                 "name"  => $_POST["product_name"],
                 "price"  => $_POST["product_price"],
                 "qty"  => $_POST["quantity"],
-                "preferable_date"  => $_POST["preferable_date"],
+                "preferable_date"  => $_POST["preferable_date"]
             );
         }
         else{
@@ -60,8 +61,7 @@ class Shoppingcart extends CI_Controller
                 "user"  => $cart_session,
                 "name"  => $_POST["product_name"],
                 "price"  => $_POST["product_price"],
-                "qty"  => $_POST["quantity"],
-
+                "qty"  => $_POST["quantity"]
             );
         }
 // print_r($basedata);die;
