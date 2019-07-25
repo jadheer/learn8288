@@ -28,29 +28,3 @@ class PaypalExpress
         else {
             $json = json_decode($result);
             $accessToken = $json->access_token;
-            $curl = curl_init($pay_url.'v1/payments/payment/' . $paymentID);
-            curl_setopt($curl, CURLOPT_POST, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_HEADER, false);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Authorization: Bearer ' . $accessToken,
-            'Accept: application/json',
-            'Content-Type: application/xml'
-            ));
-            $response = curl_exec($curl);
-             
-            curl_close($ch);
-            curl_close($curl);
-
-            return $response;
-            
-        }
-        
-    }
-    
-    
-}
-
-
-?>
