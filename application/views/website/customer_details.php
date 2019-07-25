@@ -30,14 +30,14 @@
                                     <td><?=$count?></td>
                                     <td><?=$items["name"]?></td>
                                     <td><?=$items["qty"]?></td>
-                                    <td>Rs <?=$items["price"]?></td>
-                                    <td>Rs <?=$items["price"]*$items["qty"]?></td>
+                                    <td><i class="fa fa-dollar"></i> <?=$items["price"]?></td>
+                                    <td><i class="fa fa-dollar"></i> <?=$items["price"]*$items["qty"]?></td>
                                 </tr>
                             <?php $count++;  } ?>
                         </tbody>
                         <tr>
                             <td colspan="4">Grand Total</td>
-                            <td>Rs <?=$this->cart->total()?></td>
+                            <td><i class="fa fa-dollar"></i> <?=$this->cart->total()?></td>
                         </tr>
                     </table>
                     <article class="container text-info-block">
@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Pay Rs <?=$this->cart->total()?></button>
+                                    <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Pay <i class="fa fa-dollar"></i> <?=$this->cart->total()?></button>
                                 </div>
                             </form>
                         </div>

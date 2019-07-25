@@ -146,10 +146,10 @@ class Admin_functions extends CI_Controller
 		$obj_order_details = $this->Admin_functions_model->get_order_details($invoice_id);
 
 		// echo "<pre>";print_r($obj_order_details);die;
-		$arr_items = explode(',', $obj_order_details->items);
+		$arr_items = explode('||', $obj_order_details->items);
 
 		foreach ($arr_items as $item) {
-			$items_filtered = explode("-", $item);
+			$items_filtered = explode("--", $item);
 			$course_type = $items_filtered[0];
 			$course_id = $items_filtered[1];
 			if($course_type == 'ct'){

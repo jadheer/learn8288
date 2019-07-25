@@ -2,6 +2,14 @@
 class Website_functions_model extends CI_Model
 {
 
+	public function get_cart_data($cart_session)
+	{
+		$query = $this->db
+				->where("user",$cart_session)
+				->get("tbl_cart");
+			return $query->row();
+	}
+
 	public function update_purchase_status($pid, Array $form_data)
 	{
 		return $this->db
