@@ -66,6 +66,7 @@ $route['customer-data'] = 'Website_controller/customer_data';
 $route['pay'] = 'Website_controller/pay';
 $route['process'] = 'Website_controller/process';
 $route['transaction-completed/:any'] = 'Website_controller/transaction_complete';
+$route['order-details/:any'] = 'Website_controller/order_details';
 
 $route['login'] = 'Admin_authentication';
 // $route['default_controller'] = 'Admin_authentication';
