@@ -1,18 +1,17 @@
 <?php include_once('includes/header.php'); ?>
 
-<header class="heading-banner text-white bgCover" style="background-image: url(<?= base_url('website_assets/images/img23.jpg'); ?>);">
-    <div class="container holder">
-        <div class="align">
-            <h1>Oops! Transaction Failed</h1>
-        </div>
-    </div>
-</header>
+<!-- contain main informative part of the site -->
+<main id="main">
 
-<div class="container">
-    <div class="row">
-        <?=($err)?>
-    </div>
-</div>
+    <section class="cart-content-block container text-center">
+        <!-- cart form -->
+        <img src="<?= base_url('website_assets/images/failed.png'); ?>">
+		<h1>Oops! Transaction Failed</h1>
+		<h5>Your payment failed </h5>
+			<?=($err)?>
+    </section>
+
+</main>
 
 <!-- footer-area end -->
 <?php include_once('includes/footer.php'); ?>

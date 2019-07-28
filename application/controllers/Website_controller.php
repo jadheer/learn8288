@@ -254,7 +254,31 @@ class Website_controller extends CI_Controller
 			}
 		}
 
-		$this->load->view('website/success',compact('obj_order_details','arr_batch','arr_items'));
+		$this->load->view('website/success',compact('pid'));
+
+	}
+
+	public function order_details()
+	{
+		$pid = $this->uri->segment(2);
+		$purchase = $this->Website_functions_model->get_purchase_amount($pid);
+		$obj_order_details = $this->Admin_functions_model->get_order_details($pid);
+
+		$arr_items = explode('||', $purchase->items);
+
+		foreach ($arr_items as $item) {
+			$items_filtered = explode("--", $item);
+			$course_type = $items_filtered[0];
+			$course_id = $items_filtered[1];
+			if($course_type == 'ct'){
+				$arr_batch[] = $this->Admin_functions_model->get_ct_exact_batch_by_id($course_id);
+			}
+			else{
+				$arr_batch[] = $this->Admin_functions_model->get_ot_exact_batch_by_id($course_id);
+			}
+		}
+
+		$this->load->view('website/order_details',compact('obj_order_details','arr_batch','arr_items','pid'));
 
 	}
 

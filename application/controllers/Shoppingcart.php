@@ -169,7 +169,7 @@ class Shoppingcart extends CI_Controller
             <td colspan="3" class="row-img">&nbsp;</td>
             <td  class="text-right btn-actions">
                 <div>
-                    <a href='.base_url('web/products').' class="btn btn-secondary cont">
+                    <a href='.base_url().' class="btn btn-secondary cont">
                         <i class="fa fa-chevron-left"></i> Continue Shopping</a>
                 </div>
             </td>
