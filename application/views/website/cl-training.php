@@ -243,21 +243,4 @@
 				});
 			});
 
-/*            $('#ajax-content-container2').on("change",".classquantity", function(e){
-                e.preventDefault();
-				var locality_val = $(this).val();
-				var course_amount = $(this).parent().find(".course_amount").text();
-				var total_amount = locality_val*course_amount;
-				alert(course_amount);
-				console.log(course_amount);
-            });*/
-
-		  $(document).ready(function() {
-		      $('#ajax-content-container2').on("change",'select[id^="classquantity"]', function(e){
-		      	e.preventDefault();
-		        var locality_val = $(this).val();
-		        var id = e.id;
-		        alert(e.target.id);
-		    });
-		  });
 		</script>

@@ -1,4 +1,4 @@
-<div class="col-md-12 col-xs-12 d-brd">
+<div class="col-md-12 col-xs-12 batch-list d-brd">
 
     <div class="col-md-3 col-xs-12  dtt">
       <?php $arr_dates = explode(',', $batch->dates); foreach ($arr_dates as $date){ ?>
@@ -22,7 +22,7 @@
 
     <div class="col-md-1 col-sm-12">
       <label>Quantity</label>
-      <select class="form-control element-block" id="classquantity<?=($count)?>">
+      <select class="form-control quantity element-block" id="classquantity<?=($count)?>">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>

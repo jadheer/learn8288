@@ -116,7 +116,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-sm-6 col-xs-6 col-md-offset-3">
-                                        <h3 class="text-right">Rs: <?= $grand_total; ?> /-</h3>
+                                        <h3 class="text-right">$<?= $grand_total; ?> /-</h3>
                                     </div>
                                 </div>
                                 <hr>

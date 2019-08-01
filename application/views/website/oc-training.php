@@ -73,6 +73,8 @@
       </div>
     </div>
 
+    <input type="hidden" value="<?=($batch->date_count)?>" class="date_count">
+
     <div class="col-md-3 col-sm-12 col-xs-12 ">
       <label>Select Your Preferable Time </label>
       <select class="form-control element-block">
@@ -85,7 +87,7 @@
 
     <div class="col-md-2 col-sm-12 col-xs-12">
       <label>Quantity</label>
-      <select class="form-control element-block">
+      <select name="quantity" class="quantity form-control element-block">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
