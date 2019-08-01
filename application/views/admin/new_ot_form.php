@@ -220,14 +220,14 @@
                                     '<div class="form-group row">',
                                         '<label class="col-sm-4 form-control-label text-right">Course Fee Real<span class="text-danger">*</span></label>',
                                         '<div class="col-sm-7">',
-                                            '<input name="course_fee_full[]" type="text" class="form-control" required placeholder="Sub Sub Category Name"/>',
+                                            '<input name="course_fee_full[]" type="text" class="form-control" required placeholder="Course Fee Real"/>',
                                         '</div>',
                                     '</div>',
 
                                     '<div class="form-group row">',
                                         '<label class="col-sm-4 form-control-label text-right">Course Fee Offer<span class="text-danger">*</span></label>',
                                         '<div class="col-sm-7">',
-                                            '<input name="course_fee_offer[]" type="text" class="form-control" required placeholder="Sub Sub Category Name"/>',
+                                            '<input name="course_fee_offer[]" type="text" class="form-control" required placeholder="Course Fee Offer"/>',
                                         '</div>',
                                     '</div>',
 
@@ -235,6 +235,13 @@
                                         '<label class="col-sm-4 form-control-label text-right">Offer Untill<span class="text-danger">*</span></label>',
                                         '<div class="col-sm-7">',
                                             '<input type="text" name="offer_untill_date[]" class="form-control datepicker" placeholder="mm/dd/yyyy" id="">',
+                                        '</div>',
+                                    '</div>',
+
+                                    '<div class="form-group row">',
+                                        '<label class="col-sm-4 form-control-label text-right">Select Date Count<span class="text-danger">*</span></label>',
+                                        '<div class="col-sm-7">',
+                                            '<input type="number" name="date_count[]" class="form-control" placeholder="Select number of dates can be selected" id="">',
                                         '</div>',
                                     '</div>',
 

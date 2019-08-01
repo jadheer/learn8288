@@ -72,7 +72,7 @@
                                 <div class="portlet-body">
 
                                     <div class="form-group row">
-                                        <label class="col-sm-4 form-control-label text-right">Course Fee Offer
+                                        <label class="col-sm-4 form-control-label text-right">Course Title
                                             <span class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-7">
@@ -81,7 +81,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-4 form-control-label text-right">Enter timing (Seperate by comma ( , ))<span class="text-danger">*</span></label>
+                                        <label class="col-sm-4 form-control-label text-right">Enter Timing (Seperate by comma ( , ))<span class="text-danger">*</span></label>
                                         <div class="col-sm-7">
                                             <textarea name="timings[]" class="form-control"><?=($ot_batch->timings)?></textarea>
                                         </div>
@@ -108,6 +108,13 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label text-right">Select Date Count<span class="text-danger">*</span></label>
+                                        <div class="col-sm-7">
+                                            <input type="number" name="date_count[]" value="<?=($ot_batch->date_count)?>" class="form-control" placeholder="Select number of dates can be selected">
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -115,7 +122,7 @@
                         <?php $i++; } ?>
 
                                             </div>
-                                            <button type="button" class="btn btn-pink waves-effect w-md waves-light add_field_button">Update Batch</button>
+                                            <button type="button" class="btn btn-pink waves-effect w-md waves-light add_field_button">Add Batch</button>
 
                                             <div class="form-group row">
                                                 <div class="col-sm-8 col-sm-offset-4">

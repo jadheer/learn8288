@@ -256,6 +256,7 @@ class Admin_functions extends CI_Controller
 								'course_fee_full' => $_POST['course_fee_full'][$i],
 								'course_fee_offer' => $_POST['course_fee_offer'][$i],
 								'offer_untill_date' => $_POST['offer_untill_date'][$i],
+								'date_count' => $_POST['date_count'][$i],
 							);
 				$status = $this->Admin_functions_model->store_ot_batch($form_data);
 			}
@@ -299,11 +300,12 @@ class Admin_functions extends CI_Controller
 			$form_data = array(
 							'main_category_id' => $this->input->post('main_category_id'),
 							'course_id' => $this->input->post('course_id'),
-							'title' => $this->input->post('title'),
+							'title' => $_POST['title'][$i],
 							'timings' => $_POST['timings'][$i],
 							'course_fee_full' => $_POST['course_fee_full'][$i],
 							'course_fee_offer' => $_POST['course_fee_offer'][$i],
 							'offer_untill_date' => $_POST['offer_untill_date'][$i],
+							'date_count' => $_POST['date_count'][$i],
 						);
 			$status = $this->Admin_functions_model->store_ot_batch($form_data);
 		}

@@ -10,7 +10,7 @@
 
         <h5>Thank You</h5>
         Your order was completed successfully <br> 
-        we will get back to you shortly your transaction id is #<?=($pid)?> <a href="<?=(base_url())?>order-details/<?=($pid)?>">(View)</a>
+        we will get back to you shortly, your transaction id is #<?=($pid)?> <a href="<?=(base_url())?>order-details/<?=($pid)?>">(View)</a>
     </section>
 
 </main>

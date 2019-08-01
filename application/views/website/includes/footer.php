@@ -124,19 +124,26 @@
             // var stock= $(this).data('stock');
             var closestParent = $(this).closest('.batch-list');
             pref_date = closestParent.find('.preferable_date').val();
+            date_count = closestParent.find('.date_count').val();
+            var pref_date_count = pref_date.split(",");
+            quantity = closestParent.find('.quantity').val();
             <?php if(isset($page_type)){ if($page_type == "online"){ ?>
                 if(pref_date == ""){
                     alert("Please select preferable date");
                     flag = 0;
                 }
+                if(parseInt(date_count) < pref_date_count.length){
+                    alert("You can select only "+date_count+" dates count");
+                    flag = 0;
+                }
+
             <?php }} ?>
 
-
-            if(flag == 1){            
+            if(flag == 1){
                 $.ajax({
                     url:"<?php echo base_url(); ?>Shoppingcart/add",
                     method:"POST",
-                    data:{product_id:product_id,product_name:product_name,product_price:product_price,type:type,quantity:1,preferable_date:pref_date},
+                    data:{product_id:product_id,product_name:product_name,product_price:product_price,type:type,quantity:quantity,preferable_date:pref_date},
                     success:function(data)
                     {
                         $('#count').load("<?php echo base_url(); ?>Shoppingcart/count");
