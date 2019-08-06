@@ -96,10 +96,17 @@
               multidate: true,
               format: 'dd-mm-yyyy'
             });
+
+            var date = new Date();
+            date.setDate(date.getDate()+4);
+
+            $('.date').datepicker("setStartDate",date);
+
         </script>
 
     <script>
     $(document).ready(function(){
+
         $.ajax({
             url:"<?php echo base_url(); ?>Shoppingcart/count",
             success:function(data)
